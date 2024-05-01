@@ -21,13 +21,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.*
 import androidx.compose.material.Icon
+import androidx.compose.material.Text
+import androidx.compose.ui.modifier.modifierLocalOf
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun JoinButton(onClick: (Boolean)-> Unit = {}){
@@ -100,8 +105,11 @@ fun JoinButton(onClick: (Boolean)-> Unit = {}){
             .clip(shape)
             .border(width = 1.dp, color = Color.Blue, shape = shape)
             .background(color = buttonBackgroundColor)
-            .size(width = 40.dp, height = 24.dp)
-            .clickable(onClick = {
+            .size(
+                width = buttonWidth,
+                height = 24.dp)
+            .clickable(
+                onClick = {
                 buttonState =
                     if (buttonState == JoinButtonState.IDLE) {
                         onClick.invoke(true)
@@ -113,12 +121,28 @@ fun JoinButton(onClick: (Boolean)-> Unit = {}){
             }),
         contentAlignment = Alignment.Center
     ){
-        Icon(
-            imageVector = iconAssert,
-            contentDescription = "Plus Icon",
-            tint = iconTintColor,
-            modifier = Modifier.size(16.dp)
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            Icon(
+                imageVector = iconAssert,
+                contentDescription = "Plus Icon",
+                tint = iconTintColor,
+                modifier = Modifier.size(16.dp)
+            )
+            Text(
+                text = "Join",
+                color = Color.White,
+                fontSize = 14.sp,
+                maxLines = 1,
+                modifier = Modifier
+                    .widthIn(
+                        min = 0.dp,
+                        max = textMaxWidth
+                    )
+            )
+        }
+
     }
 }
 
